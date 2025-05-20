@@ -9,7 +9,7 @@ ImageDictionary::ImageDictionary(const string& folder) {
     for (const auto& entry : fs::directory_iterator(folder)) {
         if (entry.is_regular_file()) {
             string path = entry.path().string();
-            string filename = entry.path().stem().string();  // §£ßt∞∆¿…¶W
+            string filename = entry.path().stem().string(); 
             keyword_to_path[filename] = path;
         }
     }
@@ -18,18 +18,22 @@ ImageDictionary::ImageDictionary(const string& folder) {
 bool ImageDictionary::showImage(const string& keyword) {
     auto it = keyword_to_path.find(keyword);
     if (it == keyword_to_path.end()) {
-        cout << "ß‰§£®Ï√ˆ¡‰¶r°G" << keyword << endl;
+        cout << "Êâæ‰∏çÂà∞ÈóúÈçµÂ≠óÔºö" << keyword << endl;
         return false;
     }
 
     string path = it->second;
     cv::Mat img = cv::imread(path);
     if (img.empty()) {
-       cout << "µL™k≈™®˙πœ§˘°G" << path << endl;
+        cout << "ÁÑ°Ê≥ïËÆÄÂèñÂúñÁâáÔºö" << path << endl;
         return false;
     }
 
+   
+    cv::resize(img, img, cv::Size(800, 600));
+
     cv::imshow("Image: " + keyword, img);
-    cv::waitKey(0);  // µ•´›®œ•Œ™Ã´ˆ¡‰
+    cv::waitKey(0);
     return true;
 }
+
